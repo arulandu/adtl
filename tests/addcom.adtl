@@ -1,0 +1,38 @@
+iterNat : (A : Type 0) -> A -> (A -> A) -> Nat -> A.
+iterNat := fun A : Type 0 => fun z : A => fun s : A -> A => fun n : Nat => 
+  elimNat (fun p : Nat => A) z (fun p : Nat => s) n.
+
+Same : (A : Type 0) -> A -> A -> Type 1.
+Same := fun A : Type 0 => fun a : A => fun b : A => 
+  (P : A -> Type 0) -> P a -> P b.
+
+refl : (A : Type 0) -> (x : A) -> Same A x x.
+refl := fun A : Type 0 => fun x : A =>
+  fun P : A -> Type 0 => fun z : P x => z.
+
+trans : (A : Type 0) -> (x : A) -> (y : A) -> (z : A) -> Same A x y -> Same A y z -> Same A x z.
+trans := fun A : Type 0 => fun x : A => fun y : A => fun z : A => fun pxy : Same A x y => fun pyz : Same A y z => 
+  fun P : A -> Type 0 => fun px : P x => pyz P (pxy P px).
+
+add : (x : Nat) -> (y : Nat) -> Nat.
+add := fun x : Nat => fun y : Nat => iterNat Nat y (fun z : Nat => succ z) x.
+
+same_under_suc : (x : Nat) -> (y : Nat) -> Same Nat x y -> Same Nat (succ x) (succ y).
+same_under_suc := fun x : Nat => fun y : Nat => fun z : Same Nat x y =>
+  fun P : Nat -> Type 0 => z (fun q : Nat => P (succ q)).
+
+plus_right_zero : (x : Nat) -> Same Nat x (add x 0).
+plus_right_suc : (x : Nat) -> (y : Nat) -> Same Nat (succ (add x y)) (add x (succ y)).
+
+plus_comm := fun x : Nat => fun y : Nat => elimNat
+  (fun x : Nat => Same Nat (add x y) (add y x))
+  (plus_right_zero y)
+  (fun n : Nat => fun p : Same Nat (add n y) (add y n) => 
+  trans Nat (succ (add n y))
+    (succ (add y n))
+    (add y (succ n))
+    (same_under_suc (add n y) (add y n) p)
+    (plus_right_suc y n)
+  ) x.
+
+Check plus_comm.

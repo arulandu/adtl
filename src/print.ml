@@ -41,8 +41,8 @@ let expr e ppf =
         | Ast.App (e1, e2) -> print ~at_level:1 "%t %t" (expr ~max_level:1 e1) (expr ~max_level:0 e2)
         | Ast.Nat -> print "Nat"
         | Ast.Zero -> print "0"
-        | Ast.Succ s -> print "Succ %t" (expr s)
-        | Ast.ElimNat (e1, e2, e3, e4) -> print "ElimNat (%t) (%t) (%t) (%t)" (expr e1) (expr e2) (expr e3) (expr e4)
+        | Ast.Succ s -> print "succ %t" (expr s)
+        | Ast.ElimNat (e1, e2, e3, e4) -> print "elimNat (%t) (%t) (%t) (%t)" (expr e1) (expr e2) (expr e3) (expr e4)
   in
     expr (Beautify.beautify e) ppf
       

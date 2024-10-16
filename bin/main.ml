@@ -83,14 +83,16 @@ let rec exec_cmd interactive ctx d =
       ctx
     | Ast.Parameter (x, t) ->
       ignore (Infer.infer_universe ctx t) ;
-      (* if interactive then
-        Format.printf "@[%t is assumed@]@." (Print.variable x) ; *)
       Ctx.extend x t ctx
     | Ast.Definition (x, e) ->
-      if List.mem_assoc x ctx then Error.typing "%t already exists" (Print.variable x) ;
       let t = Infer.infer_type ctx e in
-        (* if interactive then
-          Format.printf "@[%t is defined@]@." (Print.variable x) ; *)
+      if List.mem_assoc x ctx then begin
+        let tx = Ctx.lookup_ty x ctx in
+        if Infer.equal ctx t tx then
+          Ctx.extend x tx ~value:e ctx
+        else
+          Error.typing "%t already exists and does not match type" (Print.variable x);
+      end else
         Ctx.extend x t ~value:e ctx
     | Ast.Check e ->
       let t = Infer.infer_type ctx e in

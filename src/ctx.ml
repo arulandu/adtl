@@ -17,4 +17,4 @@ let lookup_value x ctx = snd (List.assoc x ctx)
     of type [t] and assigned value [e]. *)
 let extend x t ?value ctx = (x, (t, value)) :: ctx
 
-
+let remove x ctx = List.filter (fun (v, _) -> v <> x) ctx 

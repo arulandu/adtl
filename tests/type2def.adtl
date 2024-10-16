@@ -1,0 +1,5 @@
+s : Nat.
+s := 0.
+Config.
+x : Nat.
+x := Nat.

@@ -54,7 +54,7 @@ let equal ctx e1 e2 =
       | ElimNat (e11, e12, e13, e14), ElimNat (e21, e22, e23, e24) -> equal e11 e21 && equal e12 e22 && equal e13 e23 && equal e14 e24
       | (Var _ | App _ | Universe _ | Pi _ | Lambda _ | Nat | Zero | Succ _ | ElimNat _), _ -> false
   and equal_abstraction (x, t1, e1) (y, t2, e2) =
-    let z = Var (refresh x) in
+    let z = Var (fresh x) in
       equal t1 t2 && (equal (subst [(x,z)] e1) (subst [(y, z)] e2))
   in
     equal (normalize ctx e1) (normalize ctx e2)

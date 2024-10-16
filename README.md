@@ -22,8 +22,17 @@ We also plan to add the following features in the near future:
 * Dependent sums
 * De Bruijn indices
 
+### Additive 
+Since we have universes but they aren't cumulative, we have an issue while proving commutative additivity in which we can't cast `Nat -> Type 0` to `Nat -> Type 1`. Without universes, `Type 1 = Type 0 = *`, so this would work out. Now, most of the `.agda` proof carries over and is present in `addcomm.adtl`, but `plus_right_zero, plus_right_suc, plus_comm` depend on the above casting property, which is impossible for now. `addcomm2.adtl` contains only the parts of the proof that carry over.
+
 ## Implementation
 We use the `menhir` parser generator with `ocamllex` for lexing. We do not use de Bruijn indices, and instead generate fresh variables. 
 
 ## Usage
-The build process runs using `dune`. Run `dune build` and `dune exec -- adtl`. For CLI usage, run `dune exec -- adtl -h` and for language usage type `Help.` in the REPL. Particularly, run `dune exec -- adtl -l ./tests/{path}.adtl` to load a file / run a single test. To run all tests, run `./test.sh` which will generate a `./tests/{name}.out` file for each test.
+The build process runs using `dune`. Run `dune build` and `dune exec -- adtl`. For CLI usage, run `dune exec -- adtl -h` and for language usage type `Help.` in the REPL.
+
+## Tests
+Run `dune exec -- adtl -l ./tests/{path}.adtl` to load a file / run a single test. To run all tests, run `./test.sh` which will generate a `./tests/{name}.out` file for each test.
+
+### Additive Commutativity
+Most of the `.agda` [proof](https://plti.metareflection.club/assignments.html) has been converted and typechecks in `addcom2.adtl`. However, notice that because of our universes, `Same : (A : Type 0) -> A -> A -> Type 1`, where `Type 1` has replaced `*`. Since cumulative universes haven't been implemented yet, completing the agda proof is impossible for the time being since `Type 0` doesn't up-cast to `Type 1`. This is a bit unfortunate, but we're forced to settle. 

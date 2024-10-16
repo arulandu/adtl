@@ -1,7 +1,19 @@
 s : Type 0.
+a : s.
+
+e1 : Nat -> Type 0.
 e1 := fun x : Nat => s.
+
 e2 : e1 0.
+e2 := a. 
+
 e3 : (x : Nat) -> e1 x -> e1 (succ x).
+e3 := fun x : Nat => fun y : s => a.
+
+e4 : Nat.
 e4 := succ 0.
+
+e5 : e1 e4.
 e5 := elimNat e1 e2 e3 e4.
-Context.
+
+Eval e5.

@@ -2,19 +2,19 @@ iterNat : (A : Type 0) -> A -> (A -> A) -> Nat -> A.
 iterNat := fun A : Type 0 => fun z : A => fun s : A -> A => fun n : Nat => 
   elimNat (fun p : Nat => A) z (fun p : Nat => s) n.
 
+one := succ 0.
+
 add : (x : Nat) -> (y : Nat) -> Nat.
 add := fun x : Nat => fun y : Nat => iterNat Nat y (fun z : Nat => succ z) x.
 
 mult : (x : Nat) -> (y : Nat) -> Nat.
-mult := fun x : Nat => fun y : Nat => iterNat Nat y (fun z : Nat => add z x) x.
+mult := fun x : Nat => fun y : Nat => iterNat Nat 0 (fun z : Nat => add x z) y.
 
-one := succ 0.
 two := succ one.
 three := succ two.
+five := add two three.
 
-sum := add two three.
-prod := mult two three.
+a := mult two five.
 
 Context.
-Eval sum.
-Eval prod.
+Eval a.

@@ -17,13 +17,9 @@ This project adds the following features to our dependently typed language:
 We also plan to add the following features in the near future:
 * Cummulative universes, so that [A : Type k] implies [A : Type (k+1)]
 * Currying syntax, e.g., allow `fun x y : nat => ...` instead of `fun x : nat => fun y : nat => ...`
-* More basic types `unit`, `bool` and `nat`
+* More basic types `unit`, `bool`
 * Eta rule for functions
 * Dependent sums
-* De Bruijn indices
-
-### Additive 
-Since we have universes but they aren't cumulative, we have an issue while proving commutative additivity in which we can't cast `Nat -> Type 0` to `Nat -> Type 1`. Without universes, `Type 1 = Type 0 = *`, so this would work out. Now, most of the `.agda` proof carries over and is present in `addcomm.adtl`, but `plus_right_zero, plus_right_suc, plus_comm` depend on the above casting property, which is impossible for now. `addcomm2.adtl` contains only the parts of the proof that carry over.
 
 ## Implementation
 We use the `menhir` parser generator with `ocamllex` for lexing. We do not use de Bruijn indices, and instead generate fresh variables. 

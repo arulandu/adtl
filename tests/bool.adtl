@@ -1,0 +1,9 @@
+true := fun t : Type 1 => fun a : t => fun b : t => a.
+false := fun t : Type 1 => fun a : t => fun b : t => b.
+
+or := fun t : Type 1 => fun p : (tp : Type 1) -> tp -> tp -> tp => fun q : (tq : Type 1) -> tq -> tq -> tq => (p (t -> t -> t)) (p t) (q t).
+
+s : Type 1.
+x := or s true false.
+Context.
+Eval x.

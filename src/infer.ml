@@ -31,7 +31,7 @@ let rec normalize ctx = function
     let e4 = normalize ctx e4 in 
     match e4 with
     | Succ s -> normalize ctx (App (App(e3, s), ElimNat (normalize ctx e1, normalize ctx e2, normalize ctx e3, normalize ctx s)))
-    | Zero -> e1
+    | Zero -> e2
     | e4 -> ElimNat(e1, e2, e3, e4)
 
 and normalize_abstraction ctx (x, t, e) =

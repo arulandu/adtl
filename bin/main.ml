@@ -91,7 +91,7 @@ let rec exec_cmd interactive ctx d =
         if Infer.equal ctx t tx then
           Ctx.extend x tx ~value:e ctx
         else
-          Error.typing "%t already exists and does not match type" (Print.variable x);
+          Error.typing "%t already exists with type %t, but given definition has type %t" (Print.variable x) (Print.expr tx) (Print.expr t);
       end else
         Ctx.extend x t ~value:e ctx
     | Ast.Check e ->

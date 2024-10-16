@@ -23,6 +23,7 @@ same_under_suc := fun x : Nat => fun y : Nat => fun z : Same Nat x y =>
 
 plus_right_zero : (x : Nat) -> Same Nat x (add x 0).
 plus_right_suc : (x : Nat) -> (y : Nat) -> Same Nat (succ (add x y)) (add x (succ y)).
+plus_comm : (x : Nat) -> (y : Nat) -> Same Nat (add x y) (add y x).
 
 plus_comm := fun x : Nat => fun y : Nat => elimNat
   (fun x : Nat => Same Nat (add x y) (add y x))

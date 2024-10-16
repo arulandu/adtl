@@ -1,0 +1,14 @@
+s : Type 0
+a : s
+e1 = fun _ : Nat => s
+    : Nat -> Type 0
+e2 = a
+    : s
+e3 = fun _ : Nat => fun _ : s => a
+    : Nat -> s -> s
+e4 = Succ 0
+    : Nat
+e5 = ElimNat (e1) (e2) (e3) (e4)
+    : s
+    = a
+    : s

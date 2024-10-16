@@ -1,0 +1,9 @@
+s : Type 0
+e1 = fun _ : Nat => s
+    : Nat -> Type 0
+e2 : e1 0
+e3 : forall x : Nat, e1 x -> e1 Succ x
+e4 = Succ 0
+    : Nat
+e5 = ElimNat (e1) (e2) (e3) (e4)
+    : s

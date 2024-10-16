@@ -1,0 +1,10 @@
+(ocamllex
+  (modules lexer))
+
+(menhir
+  (modules parser))
+
+(library
+  (name adtl)
+  (public_name adtl)
+)

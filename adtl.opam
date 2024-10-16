@@ -1,0 +1,24 @@
+opam-version: "2.0"
+version: "0.0.1"
+synopsis: "ADTL: A Dependently Typed Language"
+maintainer: "aarulandu@college.harvard.edu"
+authors: [
+  "Alvan Caleb Arulandu <calebarulandu@gmail.com>"
+]
+homepage: "https://github.com/arulandu/acoc"
+dev-repo: "git+https://github.com/arulandu/acoc"
+bug-reports: "https://github.com/arulandu/acoc"
+license: "MIT"
+build: [
+  ["dune" "subst"] {pinned}
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+  ["dune" "build" "@doc" "-p" name "-j" jobs] {with-doc}
+]
+depends: [
+  "ocaml" {>= "5.1.1"}
+  "dune"
+  "core"
+  "menhir"
+  "ounit2"
+]

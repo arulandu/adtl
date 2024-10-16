@@ -1,0 +1,4 @@
+(executables
+  (public_names adtl)
+  (names main)
+  (libraries adtl))

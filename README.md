@@ -1,6 +1,6 @@
 # ADTL: A(lvan's) Dependently Typed Language
 This language takes heavy inspiration from the blog post
-[How to implement dependent type theory I](http://math.andrej.com/2012/11/08/how-to-implement-dependent-type-theory-i/). This project was my first line of OCaml, first chrome (lexer, parser, top-level), and first language; the guidance provided in the tutorial was a strong scaffold and I learned a lot. 
+[How to implement dependent type theory I](http://math.andrej.com/2012/11/08/how-to-implement-dependent-type-theory-i/), which intersperses rewrite rules, explanation, and code. This project was my first line of OCaml, first chrome (lexer, parser, top-level), and first language; the guidance provided in the tutorial was a strong scaffold and I learned a lot. 
 
 ## Type Theory
 The blog post described rewrite rules and implementation approaches for:
@@ -13,6 +13,7 @@ This project adds the following features to our dependently typed language:
 * Natural numbers and induction (natural elimination) as `Nat, 0, succ, elimNat`
     * Type inference, normalization, lexing/parsing, pretty printing.
 * Partial re-write of chrome: directive/syntax changes.
+* Standard build process, testing, and new examples.
 
 We also plan to add the following features in the near future:
 * Cummulative universes, so that [A : Type k] implies [A : Type (k+1)]
